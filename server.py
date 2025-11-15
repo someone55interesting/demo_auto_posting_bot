@@ -25,6 +25,15 @@ dp.include_router(info_router)
 
 app = FastAPI()
 
+# ДОБАВЬ ЭТОТ КОД - для health check от Render
+@app.get("/")
+async def health_check():
+    return {"status": "ok", "bot": "running"}
+
+@app.get("/health")
+async def health():
+    return {"status": "healthy"}
+
 @app.post("/")
 async def webhook(request: Request):
     data = await request.json()
